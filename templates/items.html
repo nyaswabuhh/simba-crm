@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Items</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="container">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add New Item/Service
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Item</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/items" method="post">
+                        <label for="">Item Name</label>
+                        <input type="text" name="item_name" placeholder="Item Name"><br>
+                        <label for="">Item Description</label>
+                        <input type="text" name="item_descr" placeholder="Item Description"><br>
+                        <label for="">Item Category</label>
+                        <select name="item_category">
+                            {% for c in categories %}
+                            <option value="{{c[0]}}">{{c[1]}}</option>
+                            {% endfor %}
+                        </select><br>
+                        <label for="">Item Price</label>
+                        <input type="number" name="item_price" placeholder="Item Price"><br>
+                        <label for="">Is_Stock</label>
+                        <select name="is_stock">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Add Item</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <h3 style="text-align: center;">Items & Services List</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="itemsTable" border="5">
+            <thead>
+                <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Item Description</th>
+                    <th>Item Category</th>
+                    <th>Item Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in items %}
+                <tr>
+                    <td>{{i[0]}}</td>
+                    <td>{{i[1]}}</td>
+                    <td>{{i[2]}}</td>
+                    <td>{{i[3]}}</td>
+                    <td>{{i[4]}}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>$(document).ready(function () {
+            $('#itemsTable').DataTable();
+        });</script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+{% endblock %}
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Today's Follow Ups</title>
+{% endblock %}
+
+{% block content %}
+<br>
+
+<div class="container">
+    <h3 style="text-align: center;">Today's Follow Ups</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="leadsTable" border="5">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Potential</th>
+                    <th>Created Date</th>
+                    <th>Assigned S/Person</th>
+                    <th>Next Follow Up</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for l in leads %}
+                <tr>
+                    <td>{{l[0]}}</td>
+                    <td>{{l[1]}}</td>
+                    <td>{{l[2]}}</td>
+                    <td>{{l[3]}}</td>
+                    <td>{{l[4]}}</td>
+                    <td>{{l[6]}}</td>
+                    <td>{{l[10]}}</td>
+                    <td>{{l[12]}}</td>
+                    <td>{{l[13]}}</td>
+                    <td>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal{{l[0]}}">
+                            Update
+                        </button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal{{l[0]}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Lead</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/update-lead" method="post">
+                                            <input type="hidden" name="lead_id" value="{{l[0]}}">
+                                            <label for="">First Name</label>
+                                            <input type="text" value="{{l[1]}}" name="lead_firstname"
+                                                placeholder="First Name"><br>
+                                            <label for="">Last Name</label>
+                                            <input type="text" value="{{l[2]}}" name="lead_lastname"
+                                                placeholder="Last Name"><br>
+                                            <label for="">Phone Number</label>
+                                            <input type="text" value="{{l[3]}}" name="lead_phone"
+                                                placeholder="Phone Number"><br>
+                                            <label for="">Email</label>
+                                            <input type="email" value="{{l[14]}}" name="email"
+                                                placeholder="example@gmail.com"><br>
+                                            <label for="">County</label>
+                                            <select name="county_fk">
+                                                {% for c in counties %}
+                                                <option value="{{c[0]}}">{{c[1]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <label for="">Business Location</label>
+                                            <input type="text" value="{{l[4]}}" name="business_location"
+                                                placeholder="Business Location"><br>
+                                            <label for="">Position</label>
+                                            <input type="text" value="{{l[5]}}" name="position"
+                                                placeholder="Position"><br>
+                                            <label for="">Potential Value</label>
+                                            <input type="number" value="{{l[6]}}" name="lead_potential"
+                                                placeholder="Potential Value"><br>
+                                            <label for="">Created By</label>
+                                            <select name="created_by">
+                                                {% for s in staff %}
+                                                <option value="{{s[0]}}">{{s[2]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <label for="">Business Type</label>
+                                            <select name="business_type_fk">
+                                                {% for b in business_types %}
+                                                <option value="{{b[0]}}">{{b[1]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <!-- <input type="text" name="created_by" placeholder="Created By"><br> -->
+                                            <label for="">Revenue Center</label>
+                                            <select name="revcenter_fk">
+                                                {% for r in revenue_centers %}
+                                                <option value="{{r[0]}}">{{r[1]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <!-- <input type="text" name="revcenter_fk" placeholder="Business Type"><br> -->
+                                            <label for="">Assigned Sales Person</label>
+                                            <select name="assignedstaff_fk">
+                                                {% for s in staff %}
+                                                <option value="{{s[0]}}">{{s[2]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <!-- <input type="text" name="assignedstaff_fk" placeholder="Assigned Sales Person"><br> -->
+                                            <label for="">Source</label>
+                                            <select name="lead_source">
+                                                {% for l in lead_sources %}
+                                                <option value="{{l[0]}}">{{l[1]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <!-- <input type="text" name="lead_source" placeholder="Source"><br> -->
+                                            <label for="">Lead Stage</label>
+                                            <select name="lead_stage">
+                                                {% for l in lead_stages %}
+                                                <option value="{{l[0]}}">{{l[1]}}</option>
+                                                {% endfor %}
+                                            </select><br>
+                                            <label for="">Next Follow Up(YYYY-MM-DD)</label>
+                                            <input type="text" value="{{l[13]}}" name="next_followup"
+                                                placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" required><br>
+                                            <label for="">Close Date(YYYY-MM-DD)</label>
+                                            <input type="text" value="{{l[17]}}" name="close_date"
+                                                placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"><br>
+
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            <!-- <button type="submit">  Edit Product</button> -->
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% endblock %}
+
+</html>

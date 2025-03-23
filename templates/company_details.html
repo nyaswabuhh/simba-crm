@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Company Details</title>
+{% endblock %}
+
+{% block content %}
+<br>
+<div class="container" style="text-align: center;">
+    <h3 style="text-align: center;">Company Details</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <h5>Company Details</h5>
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    {% for c in company_details %}
+                    <p><strong>Company Name:</strong>{{c[1]}}</p>
+                    <p><strong>Company Email 1: </strong>{{c[5]}}</p>
+                    <p><strong>Company Email 2: </strong>{{c[6]}}</p>
+                    <p><strong>Company Phone 1: </strong>{{c[2]}}</p>
+                    <p><strong>Company Phone 2: </strong>{{c[3]}}</p>
+                    <p><strong>Website:</strong> {{c[4]}}</p>
+                    <p><strong>Slogan: </strong>{{c[7]}}</p>
+                    <p><strong>Address: </strong>{{c[8]}}</p>
+                    <p><strong>Building: </strong>{{c[9]}}</p>
+                    <p><strong>Street: </strong>{{c[10]}}</p>
+                    <p><strong>Town/Center: </strong>{{c[11]}}</p>
+                    <p><strong>County: </strong>{{c[12]}}</p>
+                    {% endfor %}                    
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+</html>

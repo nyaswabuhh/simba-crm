@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Dashboard</title>
+{% endblock %}
+
+{% block content %}
+<div>
+  <div class="container">
+    <div style="text-align: center;">
+      <br>
+      <h1>Dashboard ||| Date: {{today_date}}</h1><br>
+      <h3>Today's Analysis</h3><br>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div class="icon-big text-center icon-primary bubble-shadow-small">
+                    <i class="fas fa-users"></i>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers" style="text-align: center;">
+                    <p class="card-category"><strong>Today's New Leads</strong></p>
+                    <h4 class="card-title">{{today_leads}}</h4>
+                    <small>Last 7 Days: <span style="color: blue;">{{week_leads}}</span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div class="icon-big text-center icon-info bubble-shadow-small">
+                    <i class="fas fa-user-check"></i>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers" style="text-align: center;">
+                    <p class="card-category"><strong>Today's Follow Ups</strong></p>
+                    <h4 class="card-title">{{today_followups}} <a href="/today-followup">(info)</a> </h4>
+                    <small>Tomorrow's Follow-ups: <span style="color: blue;">{{week_followups}}</span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div class="icon-big text-center icon-success bubble-shadow-small">
+                    <i class="fas fa-luggage-cart"></i>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers" style="text-align: center;">
+                    <p class="card-category"><strong>Today's Notes</strong></p>
+                    <h4 class="card-title">{{today_notes}}</h4>
+                    <small>Last 7 Days: <span style="color: blue;">{{week_notes}}</span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="card card-stats card-round">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-icon">
+                  <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                    <i class="far fa-check-circle"></i>
+                  </div>
+                </div>
+                <div class="col col-stats ms-3 ms-sm-0">
+                  <div class="numbers" style="text-align: center;">
+                    <p class="card-category"><strong>Today's Sales</strong></p>
+                    <h4 class="card-title">Ksh 45,000</h4>
+                    <small>Last 7 Days: <span style="color: blue;">Ksh 250,000</span></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-md-6">
+    
+    <br>
+    <canvas id="pie-chart" width="800" height="450"></canvas>
+    <br>
+  </div>
+  <div class="col-sm-6 col-md-6">
+    
+    <br>
+    <canvas id="leads-dough-chart" width="800" height="450"></canvas>
+  </div>
+
+</div>
+<br>
+<div class="container">
+  <div style="text-align: center;">
+    <h3>General Analytics</h3>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-md-6">
+        <p style="text-align: center;"><strong>Leads Per Busines Type</strong></p>
+        <br>
+        <canvas id="biztype-barchart" width="800" height="450"></canvas>
+        <br>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-icon">
+                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers" style="text-align: center;">
+                  <p class="card-category"><strong>Lead Stages</strong></p>
+                  <h4 class="card-title">
+                    {% for l in lead_status %}
+                    <p>{{l[0]}} :<span style="color: blue;">{{l[1]}}</span> </p>
+                    {% endfor %}
+
+                  </h4>
+                  <!-- <small>Last 7 Days: <span style="color: blue;">{{week_leads}}</span></small> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-icon">
+                <div class="icon-big text-center icon-info bubble-shadow-small">
+                  <i class="fas fa-user-check"></i>
+                </div>
+              </div>
+              <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers" style="text-align: center;">
+                  <p class="card-category"><strong>Leads Per S/Person</strong></p>
+                  <h4 class="card-title">
+                    {% for l in leadsperstaff %}
+                    <p>{{l[0]}} :<span style="color: blue;">{{l[1]}}</span> </p>
+                    {% endfor %}
+
+                  </h4>
+                  <!-- <small>Tomorrow's Follow-ups: <span style="color: blue;">{{week_followups}}</span></small> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div class="col-sm-6 col-md-6">
+        <br>
+        <canvas id="biztype-barchart" width="800" height="450"></canvas>
+        <br>
+      </div> -->
+
+      <!-- <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-icon">
+                <div class="icon-big text-center icon-success bubble-shadow-small">
+                  <i class="fas fa-luggage-cart"></i>
+                </div>
+              </div>
+              <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers" style="text-align: center;">
+                  <p class="card-category"><strong>Leads Per Source</strong></p>
+                  <h4 class="card-title">
+                    {% for l in leadspersource %}
+                    <p>{{l[0]}} :<span style="color: blue;">{{l[1]}}</span> </p>
+                    {% endfor %}
+                  </h4>
+                  <small>Last 7 Days: <span style="color: blue;">{{week_notes}}</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="col-sm-6 col-md-3">
+        <div class="card card-stats card-round">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-icon">
+                <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                  <i class="far fa-check-circle"></i>
+                </div>
+              </div>
+              <div class="col col-stats ms-3 ms-sm-0">
+                <div class="numbers" style="text-align: center;">
+                  <p class="card-category"><strong>Leads Business Types</strong></p>
+                  <h4 class="card-title">
+                    {% for b in business_types %}
+                    <p>{{b[0]}} :<span style="color: blue;">{{b[1]}}</span> </p>
+                    {% endfor %}
+                  </h4>
+                  <small>Last 7 Days: <span style="color: blue;">Ksh 250,000</span></small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+      new Chart(document.getElementById("pie-chart"), {
+        type: 'pie',
+        data: {
+          labels: {{ x| tojson }},
+        datasets: [{
+          label: "Lead Stages",
+          backgroundColor: ["#008000", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", '#4CAF50'],
+          data: {{ y | tojson }}
+                }]
+            },
+        options: {
+        title: {
+          display: true,
+          text: 'Lead Stages'
+        }
+      }
+        });
+
+    </script>
+
+    <script>
+      new Chart(document.getElementById("leads-dough-chart"), {
+        type: 'doughnut',
+        data: {
+          labels: {{ a | tojson }},
+        datasets: [{
+          label: "Lead Sources",
+          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3cba9f"],
+          data: {{ b | tojson }}
+              }]
+          },
+        options: {
+        title: {
+          display: true,
+          text: 'Lead Sources'
+        }
+
+      }
+      });
+
+    </script>
+
+    <script>
+      new Chart(document.getElementById("biztype-barchart"), {
+        type: 'bar',
+        data: {
+          labels: {{ c| tojson }},
+        datasets: [
+        {
+          label: "Leads",
+          backgroundColor: '#4CAF50',
+          data: {{ d | tojson }}
+              }
+      ]
+      },
+
+        options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+        
+      }
+      
+      // options: {
+      //   legend: { display: false },
+      //   title: {
+      //     display: true,
+      //     text: 'Leads Per Business Type'
+      //   }
+      //   // scales: {
+      //   //   y: {
+      //   //     beginAtZero: true
+      //   //   }
+      //   // }
+
+
+      // }
+  });
+    </script>
+
+    {% endblock %}
+
+</html>

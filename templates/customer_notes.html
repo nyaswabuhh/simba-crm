@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Customer Notes</title>
+{% endblock %}
+
+{% block content %}
+
+
+<br>
+<div class="container">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add New Note
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Note</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/customer-notes" method="post">
+                        <label for="">Note</label>
+                        <input type="text" name="customer_note" placeholder="Note"><br>
+                        <label for="">Customer Name</label>
+                        <select name="customer_id_fk">
+                            {% for c in customers %}
+                            <option value="{{c[0]}}">{{c[1]}} {{c[4]}}</option>
+                            {% endfor %}
+                        </select><br>
+                        <label for="">Staff Name</label>
+                        <select name="staff_id_fk">
+                            {% for s in staff %}
+                            <option value="{{s[0]}}">{{s[2]}} {{s[3]}}</option>
+                            {% endfor %}
+                        </select><br>
+                        <button type="submit" class="btn btn-primary">Add Note</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="container">
+    <h3 style="text-align: center;">Customer Notes List</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="leadnotesTable" border="5">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Note</th>
+                    <th>Customer FirstName</th>
+                    <th>Business Name</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in customer_notes %}
+                <tr>
+                    <td>{{c[0]}}</td>
+                    <td>{{c[1]}}</td>
+                    <td>{{c[2]}}</td>
+                    <td>{{c[3]}}</td>
+                    <td>{{c[4]}}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+</html>

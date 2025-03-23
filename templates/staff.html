@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Staff</title>
+{% endblock %}
+{% block content %}
+    <br>
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add New Staff
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Staff</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/staff" method="post">
+                            <label for="">National ID/ Passport</label>
+                            <input type="text" name="staff_nationalid" placeholder="National ID/Passport"><br>
+                            <label for="">First Name</label>
+                            <input type="text" name="staff_firstname" placeholder="First Name"><br>
+                            <label for="">Last Name</label>
+                            <input type="text" name="staff_lastname" placeholder="Last Name"><br>
+                            <label for="">Phone Number</label>                            
+                            <input type="number" name="staff_phone" placeholder="Phone Number"><br>
+                            <label for="">Email</label>
+                            <input type="email" name="email" placeholder="example@gmail.com"><br>                            
+                            <label for="">Date of Employment(YYYY-MM-DD)</label>
+                            <input type="text" name="date_of_employment" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" required><br>                            
+                            <label for="">Position</label>
+                            <input type="text" name="position" placeholder="Position"><br>                                                                                 
+                            <button type="submit" class="btn btn-primary">Add Staff</button>   
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+    <div class="container">
+        <h3 style="text-align: center;">Staff List</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover" id="leadsTable" border="5">
+                <thead>
+                    <tr>
+                        <th>Staff Number</th>
+                        <th>ID/Passport</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Date of Employment</th>
+                        <th>Position</th>                        
+                        <th>Created Date</th>
+                        <th>Action</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for l in staff %}
+                    <tr>
+                        <td>{{l[0]}}</td>
+                        <td>{{l[1]}}</td>
+                        <td>{{l[2]}}</td>
+                        <td>{{l[3]}}</td>
+                        <td>{{l[7]}}</td>
+                        <td>{{l[8]}}</td>
+                        <td>{{l[4]}}</td>
+                        <td>{{l[5]}}</td>
+                        <td>{{l[6]}}</td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal{{l[0]}}">
+                                Edit
+                            </button>
+                            
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal{{l[0]}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="/update-staff" method="post">
+                                                <input type="hidden" name="staff_id" value="{{l[0]}}">
+                                                <label for="">ID/Passport</label>
+                                                <input type="text" value="{{l[1]}}" name="staff_nationalid" placeholder="ID/Passport"><br>
+                                                <label for="">First Name</label>
+                                                <input type="text" value="{{l[2]}}" name="staff_firstname" placeholder="First Name"><br>
+                                                <label for="">Last Name</label>
+                                                <input type="text" value="{{l[3]}}" name="staff_lastname" placeholder="Last Name"><br>
+                                                <label for="">Phone</label>
+                                                <input type="text" value="{{l[7]}}" name="staff_phone" placeholder="Phone"><br>
+                                                <label for="">Email</label>
+                                                <input type="text" value="{{l[8]}}" name="email" placeholder="Email"><br>                                               
+                                                <label for="">Date Of Employment</label>
+                                                <input type="text" value="{{l[4]}}" name="date_of_employment" placeholder="Date of Employmennt"><br>
+                                                <label for="">Position</label>
+                                                <input type="text" value="{{l[5]}}" name="position" placeholder="Position"><br>                                               
+                                                
+                                                
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                <!-- <button type="submit">  Edit Product</button> -->
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </td>
+                                                
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+  {% endblock %}
+</html>

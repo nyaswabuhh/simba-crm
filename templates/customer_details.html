@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Customer Details</title>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <h3 style="text-align: center;">Customer Details | {{customer[1]}} : {{customer[4]}} : {{customer[3]}}</h3><br>
+    <div class="row">
+        <br>
+        <div class="col-6 col-md-4">
+            <h3><strong>Customer Details</strong></h3>
+
+            <p>First Name: {{customer[1]}}</p>
+            <p>Last Name: {{customer[2]}}</p>
+            <p>Phone: {{customer[3]}}</p>
+            <p>Business Name: {{customer[4]}}</p>
+            <p>Business Type: {{customer[5]}}</p>
+            <p>Email: {{customer[6]}}</p>
+            <p>Website: {{customer[7]}}</p>
+            <p>Address: {{customer[8]}}</p>
+            <p>Building: {{customer[9]}}</p>
+            <p>Street: {{customer[10]}}</p>            
+            <p>Town: {{customer[11]}}</p>
+            <p>County: {{customer[12]}}</p>
+            
+            <p>Next Followup: {{customer[14]}}</p>
+            <p>Created Date: {{customer[15]}}</p>
+            
+            
+
+
+        </div>
+        <div class="col-6 col-md-5">            
+            <h3><strong>Customer Notes</strong></h3>
+            {% for n in customer_notes %}
+
+            <p><strong>Note:</strong> {{n[1]}}</p>
+            <small><i><strong>Created Date:</strong> {{n[4]}}</p></i></small>
+
+            <!-- <p>{{n[1]}}</p>
+            <p>{{n[4]}}</p> -->
+
+            {% endfor %}
+            
+        </div>
+        <div class="col-6 col-md-3" style="text-align: center;">
+            <h3><strong>Other Info</strong></h3>
+            
+            <p>Is Active: {{customer[16]}}</p>
+            <p>Next Followup: {{customer[14]}}</p>
+            <p>Created Date: {{customer[15]}}</p>
+            <p>Created By: {{customer[17]}}</p>
+            <p><strong>Notes</strong></p>
+            <p>{{customer[13]}}</p>
+
+        
+            
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>SimbaCRM 2.0|Lead Details</title>
+{% endblock %}
+
+{% block content %}
+
+<br>
+<div class="container">
+    <h3 style="text-align: center;">Lead Details</h3>
+    <div class="row">
+        <div class="col-6 col-md-4">
+            <h3><strong>Lead Details</strong></h3>
+
+            <p>First Name: {{lead[1]}}</p>
+            <p>Last Name: {{lead[2]}}</p>
+            <p>Phone: {{lead[3]}}</p>
+            <p>Email: {{lead[14]}}</p>
+            <p>County: {{lead[16]}}</p>
+            <p>Location: {{lead[4]}}</p>
+            <p>Position: {{lead[5]}}</p>
+            <p>Created Date: {{lead[10]}}</p>
+            <p>Assigned S/Person: {{lead[12]}}</p>
+
+
+        </div>
+        <div class="col-6 col-md-5">
+            <h3><strong>Lead Notes</strong></h3>
+            {% for n in lead_notes %}
+            <p><strong>Note:</strong> {{n[1]}}</p>
+            <small><i><strong>Created Date:</strong> {{n[3]}}</p></i></small>
+            <p style="text-align: center;">**********</p>
+            {% endfor %}
+        </div>
+        <div class="col-6 col-md-3" style="text-align: center;">
+            <h3><strong>Other Info</strong></h3>
+            <h4>Close Date</h4>
+            <p style="text-align: center; color: blue">{{lead[17]}}</p>
+            <h4>Potential Value</h4>
+            <p style="text-align: center; color: green;">Ksh. {{lead[6]}}</p>
+            <h4>Next Follow Up</h4>
+            <p style="text-align: center; color: blue">{{lead[13]}}</p>
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endblock %}
+
+</html>
